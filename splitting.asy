@@ -2,10 +2,13 @@
 /* MAIN PARAMETERS */
 /*******************/
 
-real OBERKANTE           = 100;
-real UNTERKANTE          = 0;
-real IMG_WIDTH           = 100;
-real KANTEN_HEIGHT       = 20;
+real ENERGIE_LB    = 0;
+real ENERGIE_VB    = 0;
+
+real OBERKANTE     = 100;
+real UNTERKANTE    = 0;
+real IMG_WIDTH     = 100;
+real KANTEN_HEIGHT = 20;
 
 string UNEXCITED_TITLE   = "A";
 real UNEXCITED_VALUE_1   = 20;
@@ -102,14 +105,14 @@ for ( states group : all_states ) {
 }
 
 
-label("Leitungsband", (IMG_WIDTH/2, OBERKANTE+(KANTEN_HEIGHT)/2));
-label("Valenzband", (IMG_WIDTH/2, (UNTERKANTE-KANTEN_HEIGHT)/2));
+label("Leitungsband" , (IMG_WIDTH/2 , OBERKANTE+(KANTEN_HEIGHT)/2));
+label("Valenzband"   , (IMG_WIDTH/2 , (UNTERKANTE-KANTEN_HEIGHT)/2));
 
-path UNTERKANTE_BOX = box((0,UNTERKANTE), (IMG_WIDTH, UNTERKANTE - KANTEN_HEIGHT));
-path OBERKANTE_BOX  = box((0,OBERKANTE), (IMG_WIDTH,  OBERKANTE + KANTEN_HEIGHT));
+path UNTERKANTE_BOX = box((0 , UNTERKANTE) , (IMG_WIDTH , UNTERKANTE - KANTEN_HEIGHT));
+path OBERKANTE_BOX  = box((0 , OBERKANTE)  , (IMG_WIDTH , OBERKANTE + KANTEN_HEIGHT));
 
-filldraw(OBERKANTE_BOX, .5*white);
-filldraw(UNTERKANTE_BOX, .5*white);
+filldraw(OBERKANTE_BOX  , .8*white);
+filldraw(UNTERKANTE_BOX , .8*white);
 
 
 
