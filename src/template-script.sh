@@ -50,8 +50,12 @@ EXCITED_LABEL_y="\$y\$";
 EXCITED_LABEL_z="\$z\$";
 
 
-test -d $OUTPUT_FOLDER || mkdir $OUTPUT_FOLDER
+#######################################################################
+#                                LUMOS                                #
+#######################################################################
 
+
+test -d $OUTPUT_FOLDER || mkdir $OUTPUT_FOLDER
 
 
 cat > $OUTPUT_FOLDER/Makefile <<EOF
