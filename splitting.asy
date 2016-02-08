@@ -12,7 +12,7 @@ real KANTEN_HEIGHT = 20;
 
 string UNEXCITED_TITLE   = "A";
 real UNEXCITED_VALUE_1   = 20;
-string UNEXCITED_LABEL_1 = "$m_s = 0$";
+string UNEXCITED_LABEL_1 = "$m_s = 1230$";
 real UNEXCITED_VALUE_2   = 22;
 string UNEXCITED_LABEL_2 = "$m_s = 1$";
 real UNEXCITED_VALUE_3   = 28;

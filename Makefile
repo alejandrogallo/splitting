@@ -1,4 +1,4 @@
 compile:
-	asy splitting.asy
+	asy -f pdf splitting.asy
 see: compile
-	open splitting.eps
+	open splitting.pdf
