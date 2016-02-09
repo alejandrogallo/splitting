@@ -81,13 +81,13 @@ label(ABCD_TITLE, (30, 95), 0.8*blue);
 
 
 
-int steps = 10;
-real width = 100/steps;
-draw((0,0)--(0,100), linewidth(1));
-for ( int i = 0; i <= steps; i+=1 ) {
-  draw((0,width*i)--(2,width*i));
-  label(scale(0.7)*(string)pointsToEnergy(width*i), (1,width*i), E, Fill(white));
-}
+//int steps = 10;
+//real width = 100/steps;
+//draw((0,0)--(0,100), linewidth(1));
+//for ( int i = 0; i <= steps; i+=1 ) {
+  //draw((0,width*i)--(2,width*i));
+  //label(scale(0.7)*(string)pointsToEnergy(width*i), (1,width*i), E, Fill(white));
+//}
 
 
 /***************/
