@@ -2,31 +2,37 @@
 /* MAIN PARAMETERS */
 /*******************/
 
-real ENERGIE_LB_PRISTINE  = 17230;
-real ENERGIE_VB_PRISTINE  = 12300;
-real ENERGIE_VB_EXCITED   = 14290;
-real ENERGIE_VB_UNEXCITED = 15123;
-
-real OBERKANTE     = 100;
-real UNTERKANTE    = 0;
-real IMG_WIDTH     = 100;
-real KANTEN_HEIGHT = 20;
+string SPLITTING_TITLE = "128 zinc";
 
 string UNEXCITED_TITLE   = "A";
-real UNEXCITED_VALUE_x   = 123;
-string UNEXCITED_LABEL_x = "$m_s = 1230$";
-real UNEXCITED_VALUE_y   = 142;
-string UNEXCITED_LABEL_y = "$m_s = 1$";
-real UNEXCITED_VALUE_z   = 124;
-string UNEXCITED_LABEL_z = "$m_s = -1$";
+real UNEXCITED_VALUE_x   = 5.2802342965e-06   ;
+string UNEXCITED_LABEL_x = "$x$";
+real UNEXCITED_VALUE_y   = 5.2802342965e-06   ;
+string UNEXCITED_LABEL_y = "$y$";
+real UNEXCITED_VALUE_z   = -1.0560468593e-05   ;
+string UNEXCITED_LABEL_z = "$z$";
 
 string EXCITED_TITLE     = "C";
-real EXCITED_VALUE_x     = 123;
-string EXCITED_LABEL_x   = "$m_s = 0$";
-real EXCITED_VALUE_y     = 123;
-string EXCITED_LABEL_y   = "$m_s = 1$";
-real EXCITED_VALUE_z     = 523;
-string EXCITED_LABEL_z   = "$m_s = -1$";
+real EXCITED_VALUE_x     = 2.52198156703e-06     ;
+string EXCITED_LABEL_x   = "$x$  ";
+real EXCITED_VALUE_y     = 2.52198156703e-06     ;
+string EXCITED_LABEL_y   = "$y$  ";
+real EXCITED_VALUE_z     = -5.04396313407e-06     ;
+string EXCITED_LABEL_z   = "$z$  ";
+
+
+real[] ALL_VALUES={ UNEXCITED_VALUE_x, UNEXCITED_VALUE_y, UNEXCITED_VALUE_z, EXCITED_VALUE_x, EXCITED_VALUE_y, EXCITED_VALUE_z};
+real mi, ma, MIN, MAX;
+
+mi = min(ALL_VALUES);
+ma = max(ALL_VALUES);
+if ( mi<0 ) {
+  MAX = max(abs(mi), abs(ma));
+  MIN = -MAX;
+} else {
+  MAX = ma;
+  MIN = mi;
+}
 
 //size(5cm,5cm);
 unitsize(.2cm);
@@ -36,11 +42,12 @@ struct state {
   real energy;
   string title;
   real value;
-  real VB          = ENERGIE_VB_PRISTINE;
-  real LB          = ENERGIE_LB_PRISTINE;
-  real DASH_WIDTH  = 50;
+  real VB          = MIN;
+  real LB          = MAX;
+  real DASH_WIDTH  = 25;
   real DASH_HEIGHT = 1;
   real X_COORD     = 25;
+  string label_orientation = "right";
   real getPlottingValue ( ){
     real val = 100*(energy - VB)/(LB-VB);
     return val;
@@ -58,7 +65,11 @@ struct state {
   };
   void draw (){
     filldraw(box((X_COORD,value),(X_COORD+DASH_WIDTH,value+DASH_HEIGHT)),red);
-    label(title, (X_COORD+DASH_WIDTH,value), E);
+    if ( label_orientation == "right" ) {
+      label(title, (X_COORD+DASH_WIDTH,value), E);
+    } else {
+      label(title, (X_COORD,value), W);
+    }
   };
 };
 struct states {
@@ -88,45 +99,67 @@ struct states {
     }
   };
 };
+void draw_distance ( state s, state t , real label_offset=0){
+  pair mid1, mid2;
+  real energy;
+  energy = abs(s.energy - t.energy);
+  mid1 = s.getMiddlePoint();
+  mid2 = t.getMiddlePoint();
+  path p = (mid1.x, mid1.y)--(mid1.x,mid2.y);
+  draw(p, 0.5*white+dashed, Arrows());
+  label((string)energy, (mid1.x, label_offset+(mid1.y+mid2.y)/2), Fill(white));
+};
 
+
+draw((0,50)--(100,50),dashed+0.5*white);
+state CENTER;
+CENTER.value = 50;
 
 state unex_state1, unex_state2, unex_state3;
 states unexcited_triplet;
 state[] unex_group       = {unex_state1, unex_state2, unex_state3};
-unex_state1.init(ENERGIE_VB_UNEXCITED+UNEXCITED_VALUE_x, UNEXCITED_LABEL_x);
-unex_state2.init(ENERGIE_VB_UNEXCITED+UNEXCITED_VALUE_y, UNEXCITED_LABEL_y);
-unex_state3.init(ENERGIE_VB_UNEXCITED+UNEXCITED_VALUE_z, UNEXCITED_LABEL_z);
+unex_state1.init(UNEXCITED_VALUE_x, UNEXCITED_LABEL_x);
+unex_state2.init(UNEXCITED_VALUE_y, UNEXCITED_LABEL_y);
+unex_state3.init(UNEXCITED_VALUE_z, UNEXCITED_LABEL_z);
+unex_state1.label_orientation = "right";
+unex_state2.label_orientation = "left";
 unexcited_triplet.states = unex_group;
+unexcited_triplet.setX(12.5);
+unexcited_triplet.draw();
+
+//DISTANCES
+CENTER.X_COORD=unex_state1.X_COORD - CENTER.DASH_WIDTH/4;
+draw_distance(CENTER, unex_state1, 2);
+CENTER.X_COORD=unex_state2.X_COORD + CENTER.DASH_WIDTH/4;
+draw_distance(CENTER, unex_state2, -2);
+CENTER.X_COORD=unex_state3.X_COORD ;
+draw_distance(CENTER, unex_state3);
 
 
 state ex_state1, ex_state2, ex_state3;
 states excited_triplet;
 state[] ex_group       = {ex_state1, ex_state2, ex_state3};
-ex_state1.init(ENERGIE_VB_EXCITED+EXCITED_VALUE_x, EXCITED_LABEL_x);
-ex_state2.init(ENERGIE_VB_EXCITED+EXCITED_VALUE_y, EXCITED_LABEL_y);
-ex_state3.init(ENERGIE_VB_EXCITED+EXCITED_VALUE_z, EXCITED_LABEL_z);
+ex_state1.init(EXCITED_VALUE_x, EXCITED_LABEL_x);
+ex_state2.init(EXCITED_VALUE_y, EXCITED_LABEL_y);
+ex_state3.init(EXCITED_VALUE_z, EXCITED_LABEL_z);
+ex_state1.label_orientation = "right";
+ex_state2.label_orientation = "left";
 excited_triplet.states = ex_group;
+excited_triplet.setX(62.5);
+excited_triplet.draw();
+
+//DISTANCES
+CENTER.X_COORD=ex_state1.X_COORD - CENTER.DASH_WIDTH/4;
+draw_distance(CENTER, ex_state1, 2);
+CENTER.X_COORD=ex_state2.X_COORD + CENTER.DASH_WIDTH/4;
+draw_distance(CENTER, ex_state2, -2);
+CENTER.X_COORD=ex_state3.X_COORD ;
+draw_distance(CENTER, ex_state3);
 
 
-states[] all_states = {unexcited_triplet, excited_triplet};
-for ( states group : all_states ) {
-  group.draw();
-  for ( state s : group.states ) {
-    dot(s.getMiddlePoint());
-    write(s.value);
-  }
-  dot(group.getMiddlePoint());
-}
+draw(box((0,0),(100,100)), invisible);
 
-
-label("Leitungsband" , (IMG_WIDTH/2 , OBERKANTE+(KANTEN_HEIGHT)/2));
-label("Valenzband"   , (IMG_WIDTH/2 , (UNTERKANTE-KANTEN_HEIGHT)/2));
-
-path UNTERKANTE_BOX = box((0 , UNTERKANTE) , (IMG_WIDTH , UNTERKANTE - KANTEN_HEIGHT));
-path OBERKANTE_BOX  = box((0 , OBERKANTE)  , (IMG_WIDTH , OBERKANTE + KANTEN_HEIGHT));
-
-filldraw(OBERKANTE_BOX  , .8*white);
-filldraw(UNTERKANTE_BOX , .8*white);
-
-
+label(SPLITTING_TITLE, (50,50), Fill(white));
+label(UNEXCITED_TITLE, (12.5/2,50), Fill(white));
+label(EXCITED_TITLE, (100-12.5/2,50), Fill(white));
 
