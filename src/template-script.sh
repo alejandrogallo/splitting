@@ -55,6 +55,8 @@ EXCITED_LABEL_z="\$z\$";
 #                                LUMOS                                #
 #######################################################################
 
+LUMO_TITLE="$UNEXCITED_FOLDER - $EXCITED_FOLDER for $NUMBER cell"
+
 EXCITED_SPINS={$(show-me-your-electrons -n 4 $EXCITED_OUTCAR | cut -d " " -f1 | tr "\n" "," | sed -e "s/,$//" )}
 EXCITED_ENERGIES={$(show-me-your-electrons -n 4 $EXCITED_OUTCAR | cut -d " " -f2 | tr "\n" "," | sed -e "s/,$//" )}
 

@@ -42,7 +42,7 @@ rm $SPLITTING_TMP
 test -f $LUMO_TMP && rm $LUMO_TMP
 
 
-sed -e "s/\(real\) \(ENERGIE_.B_.*\).*=\(.*\)/\1 \2 = \$\2;/" -e "s/\(real\[\]\) \(.*EXC.*_.*\)=\(.*\);/\1 \2=\$\2;/"  $LUMO_FILE >> $LUMO_TMP
+sed -e 's/\(string\) \(LUMO_TITLE\).*=.*\(".*"\)/\1 \2 = "$\2"/' -e "s/\(real\) \(ENERGIE_.B_.*\).*=\(.*\)/\1 \2 = \$\2;/" -e "s/\(real\[\]\) \(.*EXC.*_.*\)=\(.*\);/\1 \2=\$\2;/"  $LUMO_FILE >> $LUMO_TMP
 echo 'cat > $OUTPUT_FOLDER/$LUMO_OUTPUT_NAME <<EOF' >> $BUILD_NAME
 cat $LUMO_TMP >> $BUILD_NAME
 echo 'EOF' >> $BUILD_NAME

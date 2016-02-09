@@ -1,3 +1,6 @@
+lumos.pdf: lumos.asy
+	asy -f pdf lumos.asy
+	open lumos.pdf
 compile:
 	asy -f pdf splitting.asy
 see: compile
