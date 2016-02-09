@@ -1,5 +1,5 @@
 clean:
 	rm -rf build
 
-build:
+build: clean
 	$(MAKE) -C src/ build
