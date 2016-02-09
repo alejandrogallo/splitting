@@ -65,11 +65,15 @@ EXCITED_LABEL_z="\$z\$";
 
 LUMO_TITLE="$UNEXCITED_FOLDER - $EXCITED_FOLDER for $NUMBER cell"
 
-EXCITED_SPINS={$(show-me-your-electrons -n 4 $EXCITED_OUTCAR | cut -d " " -f1 | tr "\n" "," | sed -e "s/,$//" )}
-EXCITED_ENERGIES={$(show-me-your-electrons -n 4 $EXCITED_OUTCAR | cut -d " " -f2 | tr "\n" "," | sed -e "s/,$//" )}
+EXCITED_SPINS={$(show-me-your-electrons $EXCITED_OUTCAR  -a 4 1 | cut -d " " -f1 | tr "\n" "," | sed -e "s/,$//" )}
+EXCITED_ENERGIES={$(show-me-your-electrons $EXCITED_OUTCAR  -a 4 1 | cut -d " " -f2 | tr "\n" "," | sed -e "s/,$//" )}
+EXCITED_OCCUPATION={$(show-me-your-electrons $EXCITED_OUTCAR  -a 4 1 | cut -d " " -f3 | tr "\n" "," | sed -e "s/,$//" )}
+EXCITED_BANDS={$(show-me-your-electrons $EXCITED_OUTCAR  -a 4 1 | cut -d " " -f4 | tr "\n" "," | sed -e "s/,$//" )}
 
-UNEXCITED_SPINS={$(show-me-your-electrons -n 4 $UNEXCITED_OUTCAR | cut -d " " -f1 | tr "\n" "," | sed -e "s/,$//" )}
-UNEXCITED_ENERGIES={$(show-me-your-electrons -n 4 $UNEXCITED_OUTCAR | cut -d " " -f2 | tr "\n" "," | sed -e "s/,$//" )}
+UNEXCITED_SPINS={$(show-me-your-electrons $UNEXCITED_OUTCAR  -a 4 1 | cut -d " " -f1 | tr "\n" "," | sed -e "s/,$//" )}
+UNEXCITED_ENERGIES={$(show-me-your-electrons $UNEXCITED_OUTCAR  -a 4 1 | cut -d " " -f2 | tr "\n" "," | sed -e "s/,$//" )}
+UNEXCITED_OCCUPATION={$(show-me-your-electrons $UNEXCITED_OUTCAR  -a 4 1 | cut -d " " -f3 | tr "\n" "," | sed -e "s/,$//" )}
+UNEXCITED_BANDS={$(show-me-your-electrons $UNEXCITED_OUTCAR  -a 4 1 | cut -d " " -f4 | tr "\n" "," | sed -e "s/,$//" )}
 
 
 #######################################################################
