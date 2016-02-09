@@ -13,6 +13,8 @@ SPLITTING_TMP=".tmp.$SPLITTING_FILE"
 LUMO_FILE="lumos.asy"
 LUMO_TMP=".tmp.$LUMO_FILE"
 
+ABCD_FILE="abcd.asy"
+ABCD_TMP=".tmp.$ABCD_FILE"
 
 ######################
 #  TEMPLATE DUMPING  #
@@ -41,11 +43,23 @@ rm $SPLITTING_TMP
 
 test -f $LUMO_TMP && rm $LUMO_TMP
 
-
 sed -e 's/\(string\) \(LUMO_TITLE\).*=.*\(".*"\)/\1 \2 = "$\2"/' -e "s/\(real\) \(ENERGIE_.B_.*\).*=\(.*\)/\1 \2 = \$\2;/" -e "s/\(real\[\]\) \(.*EXC.*_.*\)=\(.*\);/\1 \2=\$\2;/"  $LUMO_FILE >> $LUMO_TMP
 echo 'cat > $OUTPUT_FOLDER/$LUMO_OUTPUT_NAME <<EOF' >> $BUILD_NAME
 cat $LUMO_TMP >> $BUILD_NAME
 echo 'EOF' >> $BUILD_NAME
 
-
 rm $LUMO_TMP
+
+
+##################
+#  ABCD DUMPING  #
+##################
+
+test -f $ABCD_TMP && rm $ABCD_TMP
+
+sed -e 's/\(string\) \(ABCD_TITLE\).*=.*\(".*"\)/\1 \2 = "$\2"/' -e "s/\(real\) \(._ENERGIE\).*=\(.*\)/\1 \2 = \$\2;/"  $ABCD_FILE >> $ABCD_TMP
+echo 'cat > $OUTPUT_FOLDER/$ABCD_OUTPUT_NAME <<EOF' >> $BUILD_NAME
+cat $ABCD_TMP >> $BUILD_NAME
+echo 'EOF' >> $BUILD_NAME
+
+rm $ABCD_TMP

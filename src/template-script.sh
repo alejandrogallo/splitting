@@ -5,8 +5,10 @@ EXCITED_FOLDER=C
 UNEXCITED_FOLDER=A
 PRISTINE_BANDGAP_OUTCAR="../pristine/$NUMBER/A/OUTCAR"
 OUTPUT_FOLDER="splitting_plot_$UNEXCITED_FOLDER-$EXCITED_FOLDER"
+
 SPLITTING_OUTPUT_NAME=splitting.asy
 LUMO_OUTPUT_NAME=lumos.asy
+ABCD_OUTPUT_NAME=abcd.asy
 
 #################
 #  GET BANDGAP  #
@@ -64,11 +66,30 @@ UNEXCITED_SPINS={$(show-me-your-electrons -n 4 $UNEXCITED_OUTCAR | cut -d " " -f
 UNEXCITED_ENERGIES={$(show-me-your-electrons -n 4 $UNEXCITED_OUTCAR | cut -d " " -f2 | tr "\n" "," | sed -e "s/,$//" )}
 
 
+#######################################################################
+#                                ABCD                                 #
+#######################################################################
+
+ABCD_TITLE="A-B-C-D $NUMBER";
+A_ENERGIE=$(grep "free  energ" A/OUTCAR | cut -d "=" -f2 | tr -d "eV ");
+B_ENERGIE=$(grep "free  energ" B/OUTCAR | cut -d "=" -f2 | tr -d "eV ");
+C_ENERGIE=$(grep "free  energ" C/OUTCAR | cut -d "=" -f2 | tr -d "eV ");
+D_ENERGIE=$(grep "free  energ" D/OUTCAR | cut -d "=" -f2 | tr -d "eV ");
+
+
+
+
+#######################################################################
+#                               SCRIPTS                               #
+#######################################################################
+
+
 test -d $OUTPUT_FOLDER || mkdir $OUTPUT_FOLDER
 
 cat > $OUTPUT_FOLDER/Makefile <<EOF
 all:
 	asy -f pdf $SPLITTING_OUTPUT_NAME
 	asy -f pdf $LUMO_OUTPUT_NAME
+	asy -f pdf $ABCD_OUTPUT_NAME
 EOF
 
