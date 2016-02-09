@@ -5,7 +5,8 @@ EXCITED_FOLDER=C
 UNEXCITED_FOLDER=A
 PRISTINE_BANDGAP_OUTCAR="../pristine/$NUMBER/A/OUTCAR"
 OUTPUT_FOLDER=splitting_plot
-OUTPUT_NAME=splitting.asy
+SPLITTING_OUTPUT_NAME=splitting.asy
+LUMO_OUTPUT_NAME=lumos.asy
 
 #################
 #  GET BANDGAP  #
@@ -54,9 +55,14 @@ EXCITED_LABEL_z="\$z\$";
 #                                LUMOS                                #
 #######################################################################
 
+EXCITED_SPINS={$(show-me-your-electrons -n 4 $EXCITED_OUTCAR | cut -d " " -f1 | tr "\n" "," | sed -e "s/,$//" )}
+EXCITED_ENERGIES={$(show-me-your-electrons -n 4 $EXCITED_OUTCAR | cut -d " " -f2 | tr "\n" "," | sed -e "s/,$//" )}
+
+UNEXCITED_SPINS={$(show-me-your-electrons -n 4 $UNEXCITED_OUTCAR | cut -d " " -f1 | tr "\n" "," | sed -e "s/,$//" )}
+UNEXCITED_ENERGIES={$(show-me-your-electrons -n 4 $UNEXCITED_OUTCAR | cut -d " " -f2 | tr "\n" "," | sed -e "s/,$//" )}
+
 
 test -d $OUTPUT_FOLDER || mkdir $OUTPUT_FOLDER
-
 
 cat > $OUTPUT_FOLDER/Makefile <<EOF
 all:
