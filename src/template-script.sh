@@ -71,10 +71,10 @@ UNEXCITED_ENERGIES={$(show-me-your-electrons -n 4 $UNEXCITED_OUTCAR | cut -d " "
 #######################################################################
 
 ABCD_TITLE="A-B-C-D $NUMBER";
-A_ENERGIE=$(grep "free  energ" A/OUTCAR | cut -d "=" -f2 | tr -d "eV ");
-B_ENERGIE=$(grep "free  energ" B/OUTCAR | cut -d "=" -f2 | tr -d "eV ");
-C_ENERGIE=$(grep "free  energ" C/OUTCAR | cut -d "=" -f2 | tr -d "eV ");
-D_ENERGIE=$(grep "free  energ" D/OUTCAR | cut -d "=" -f2 | tr -d "eV ");
+A_ENERGIE=$(grep "free  energ" A/OUTCAR | tail -1 | cut -d "=" -f2 | tr -d "eV ");
+B_ENERGIE=$(grep "free  energ" B/OUTCAR | tail -1 | cut -d "=" -f2 | tr -d "eV ");
+C_ENERGIE=$(grep "free  energ" C/OUTCAR | tail -1 | cut -d "=" -f2 | tr -d "eV ");
+D_ENERGIE=$(grep "free  energ" D/OUTCAR | tail -1 | cut -d "=" -f2 | tr -d "eV ");
 
 
 
