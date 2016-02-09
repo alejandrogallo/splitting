@@ -36,17 +36,23 @@ echo -e "Valence band: \t $ENERGIE_VB_UNEXCITED"
 #                              SPLITTING                              #
 #######################################################################
 
-UNEXCITED_VALUE_x=$(d2E -u eV -f $UNEXCITED_OUTCAR | grep -E "^x" | cut -d ">" -f 2);
-UNEXCITED_VALUE_y=$(d2E -u eV -f $UNEXCITED_OUTCAR | grep -E "^y" | cut -d ">" -f 2);
-UNEXCITED_VALUE_z=$(d2E -u eV -f $UNEXCITED_OUTCAR | grep -E "^z" | cut -d ">" -f 2);
+SPLITTING_TITLE="$NUMBER"
+
+UNEXCITED_TITLE=$UNEXCITED_FOLDER
+
+UNEXCITED_VALUE_x=$(d2E -u MHz -f $UNEXCITED_OUTCAR | grep -E "^x" | cut -d ">" -f 2);
+UNEXCITED_VALUE_y=$(d2E -u MHz -f $UNEXCITED_OUTCAR | grep -E "^y" | cut -d ">" -f 2);
+UNEXCITED_VALUE_z=$(d2E -u MHz -f $UNEXCITED_OUTCAR | grep -E "^z" | cut -d ">" -f 2);
 
 UNEXCITED_LABEL_x="\$x\$";
 UNEXCITED_LABEL_y="\$y\$";
 UNEXCITED_LABEL_z="\$z\$";
 
-EXCITED_VALUE_x=$(d2E -u eV -f $EXCITED_OUTCAR | grep -E "^x" | cut -d ">" -f 2);
-EXCITED_VALUE_y=$(d2E -u eV -f $EXCITED_OUTCAR | grep -E "^y" | cut -d ">" -f 2);
-EXCITED_VALUE_z=$(d2E -u eV -f $EXCITED_OUTCAR | grep -E "^z" | cut -d ">" -f 2);
+EXCITED_TITLE=$EXCITED_FOLDER
+
+EXCITED_VALUE_x=$(d2E -u MHz -f $EXCITED_OUTCAR | grep -E "^x" | cut -d ">" -f 2);
+EXCITED_VALUE_y=$(d2E -u MHz -f $EXCITED_OUTCAR | grep -E "^y" | cut -d ">" -f 2);
+EXCITED_VALUE_z=$(d2E -u MHz -f $EXCITED_OUTCAR | grep -E "^z" | cut -d ">" -f 2);
 
 EXCITED_LABEL_x="\$x\$";
 EXCITED_LABEL_y="\$y\$";

@@ -4,10 +4,10 @@ lumos.pdf: lumos.asy
 abcd.pdf: abcd.asy
 	asy -f pdf abcd.asy
 	open abcd.pdf
-compile:
+splitting.pdf: splitting.asy
 	asy -f pdf splitting.asy
-see: compile
 	open splitting.pdf
+
 clean:
 	-rm *pdf 
 	-rm -rf splitting_plot

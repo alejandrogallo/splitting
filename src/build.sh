@@ -28,7 +28,7 @@ cat $TEMPLATE >> $BUILD_NAME
 test -f $SPLITTING_TMP && rm $SPLITTING_TMP
 
 #strip the real values and lables
-sed -e "s/\(real\) \(ENERGIE_.B_.*\).*=\(.*\)/\1 \2 = \$\2;/" -e "s/\(real\) \(.*EXC.*_.*\)=\(.*\);/\1 \2=\$\2;/" -e 's/\(string\) \(.*EXC.*_.*\) =\s\{0,1\}\(".*"\)/\1 \2 = "$\2"/' $SPLITTING_FILE >> $SPLITTING_TMP
+sed -e 's/\(string\) \(.*_TITLE\).*=.*\(".*"\)/\1 \2 = "$\2"/' -e "s/\(real\) \(.*EXC.*_.*\)=\(.*\);/\1 \2=\$\2;/" -e 's/\(string\) \(.*LABEL.*\)=\(.*\)/\1 \2 = "$\2"/' $SPLITTING_FILE >> $SPLITTING_TMP
 echo 'cat > $OUTPUT_FOLDER/$SPLITTING_OUTPUT_NAME <<EOF' >> $BUILD_NAME
 cat $SPLITTING_TMP >> $BUILD_NAME
 echo 'EOF' >> $BUILD_NAME
