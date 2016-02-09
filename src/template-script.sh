@@ -66,6 +66,7 @@ test -d $OUTPUT_FOLDER || mkdir $OUTPUT_FOLDER
 
 cat > $OUTPUT_FOLDER/Makefile <<EOF
 all:
-	asy -f pdf $OUTPUT_NAME
+	asy -f pdf $SPLITTING_OUTPUT_NAME
+	asy -f pdf $LUMO_OUTPUT_NAME
 EOF
 
