@@ -4,15 +4,15 @@
 
 string ABCD_TITLE = "A-B-C-D 128";
 
-real A_ENERGIE = 12;
-real B_ENERGIE = 15;
-real C_ENERGIE = 14;
-real D_ENERGIE = 13;
+real A_ENERGIE = -1121.53003052;
+real B_ENERGIE = -1119.68768304;
+real C_ENERGIE = -1119.83747265;
+real D_ENERGIE = -1121.38599590;
 
 real[] ENERGIES={A_ENERGIE, B_ENERGIE, C_ENERGIE, D_ENERGIE};
 
-real MAX = max(ENERGIES)*1.05;
-real MIN = min(ENERGIES)*.95;
+real MAX = max(ENERGIES);
+real MIN = min(ENERGIES);
 
 //size(5cm,5cm);
 unitsize(.2cm);
@@ -74,7 +74,7 @@ struct state {
 real pointsToEnergy ( real point ){
   return (MAX-MIN)*point/100 + MIN;
 };
-label(ABCD_TITLE, (30, 95), 0.8*blue);
+label(ABCD_TITLE, (30, 50), 0.8*blue);
 //draw((50,0)--(50,100),dashed, Arrows);
 
 //draw(box((0,0),(100,100)));
