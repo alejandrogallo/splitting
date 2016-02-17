@@ -28,7 +28,11 @@ cat $TEMPLATE >> $BUILD_NAME
 test -f $SPLITTING_TMP && rm $SPLITTING_TMP
 
 #strip the real values and lables
-sed -e 's/\(string\) \(.*_TITLE\).*=.*\(".*"\)/\1 \2 = "$\2"/' -e "s/\(real\) \(.*EXC.*_.*\)=\(.*\);/\1 \2=\$\2;/" -e 's/\(string\) \(.*LABEL.*\)=\(.*\)/\1 \2 = "$\2";/' $SPLITTING_FILE >> $SPLITTING_TMP
+sed '
+s/\(string\) \(.*_TITLE\).*=.*\(".*"\)/\1 \2 = "$\2"/
+s/\(real\) \(.*EXC.*_.*\)=\(.*\);/\1 \2=\$\2;/
+s/\(string\) \(.*LABEL.*\)=\(.*\)/\1 \2 = "$\2";/' $SPLITTING_FILE >> $SPLITTING_TMP
+
 echo 'cat > $OUTPUT_FOLDER/$SPLITTING_OUTPUT_NAME <<EOF' >> $BUILD_NAME
 cat $SPLITTING_TMP >> $BUILD_NAME
 echo 'EOF' >> $BUILD_NAME
@@ -43,7 +47,11 @@ rm $SPLITTING_TMP
 
 test -f $LUMO_TMP && rm $LUMO_TMP
 
-sed -e 's/\(string\) \(LUMO_TITLE\).*=.*\(".*"\)/\1 \2 = "$\2"/' -e "s/\(real\) \(ENERGIE_.B_.*\).*=\(.*\)/\1 \2 = \$\2;/" -e "s/\(real\[\]\) \(.*EXC.*_.*\)=\(.*\);/\1 \2=\$\2;/"  $LUMO_FILE >> $LUMO_TMP
+sed '
+s/\(string\) \(LUMO_TITLE\).*=.*\(".*"\)/\1 \2 = "$\2"/
+s/\(real\) \(ENERGIE_.B_.*\).*=\(.*\)/\1 \2 = \$\2;/
+s/\(real\[\]\) \(.*EXC.*_.*\)=\(.*\);/\1 \2=\$\2;/'  $LUMO_FILE >> $LUMO_TMP
+
 echo 'cat > $OUTPUT_FOLDER/$LUMO_OUTPUT_NAME <<EOF' >> $BUILD_NAME
 cat $LUMO_TMP >> $BUILD_NAME
 echo 'EOF' >> $BUILD_NAME
@@ -57,7 +65,10 @@ rm $LUMO_TMP
 
 test -f $ABCD_TMP && rm $ABCD_TMP
 
-sed -e 's/\(string\) \(ABCD_TITLE\).*=.*\(".*"\)/\1 \2 = "$\2"/' -e "s/\(real\) \(._ENERGIE\).*=\(.*\)/\1 \2 = \$\2;/"  $ABCD_FILE >> $ABCD_TMP
+sed '
+s/\(string\) \(ABCD_TITLE\).*=.*\(".*"\)/\1 \2 = "$\2"/
+s/\(real\) \(._ENERGIE\).*=\(.*\)/\1 \2 = \$\2;/'  $ABCD_FILE >> $ABCD_TMP
+
 echo 'cat > $OUTPUT_FOLDER/$ABCD_OUTPUT_NAME <<EOF' >> $BUILD_NAME
 cat $ABCD_TMP >> $BUILD_NAME
 echo 'EOF' >> $BUILD_NAME
