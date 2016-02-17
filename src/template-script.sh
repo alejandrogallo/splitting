@@ -1,6 +1,7 @@
 #!/bin/bash
 
-NUMBER=128
+SCRIPT_DIR=$(dirname $0) 
+NUMBER=$(basename $SCRIPT_DIR)
 EXCITED_FOLDER=C
 UNEXCITED_FOLDER=A
 PRISTINE_BANDGAP_OUTCAR="../pristine/$NUMBER/A/OUTCAR"
@@ -98,8 +99,16 @@ test -d $OUTPUT_FOLDER || mkdir $OUTPUT_FOLDER
 
 cat > $OUTPUT_FOLDER/Makefile <<EOF
 all:
-	asy -f pdf $SPLITTING_OUTPUT_NAME
-	asy -f pdf $LUMO_OUTPUT_NAME
-	asy -f pdf $ABCD_OUTPUT_NAME
+	@echo
+	@echo "\t\t COMPILING $SPLITTING_OUTPUT_NAME"
+	@echo
+	-asy -f pdf $SPLITTING_OUTPUT_NAME
+	@echo
+	@echo "\t\t COMPILING $LUMO_OUTPUT_NAME"
+	@echo
+	-asy -f pdf $LUMO_OUTPUT_NAME
+	@echo
+	@echo "\t\t COMPILING $ABCD_OUTPUT_NAME"
+	@echo
+	-asy -f pdf $ABCD_OUTPUT_NAME
 EOF
-
