@@ -1,6 +1,6 @@
 #!/bin/bash
 
-SCRIPT_DIR=$(dirname $0) 
+SCRIPT_DIR=$(realpath $0 | xargs dirname)
 NUMBER=$(basename $SCRIPT_DIR)
 EXCITED_FOLDER=C
 UNEXCITED_FOLDER=A
