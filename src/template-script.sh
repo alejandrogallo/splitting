@@ -18,19 +18,19 @@ ABCD_OUTPUT_NAME=abcd.asy
 test -e $BANDGAP_OUTCAR || (echo -e "\033[0;91m$BANDGAP_OUTCAR file does not exist....\033[0m"; exit 1)
 
 echo -e " \033[44mFetching pristine band gap information...\033[0m"
-ENERGIE_VB_PRISTINE=$(show-me-your-electrons -g $PRISTINE_BANDGAP_OUTCAR | grep VB | cut -d " " -f 2)
-ENERGIE_LB_PRISTINE=$(show-me-your-electrons -g $PRISTINE_BANDGAP_OUTCAR | grep LB | cut -d " " -f 2)
+ENERGIE_VB_PRISTINE=$(smye -g $PRISTINE_BANDGAP_OUTCAR | grep VB | cut -d " " -f 2)
+ENERGIE_LB_PRISTINE=$(smye -g $PRISTINE_BANDGAP_OUTCAR | grep LB | cut -d " " -f 2)
 echo -e "Valence band: \t $ENERGIE_VB_PRISTINE"
 echo -e "Conduction band: \t $ENERGIE_LB_PRISTINE"
 
 EXCITED_OUTCAR=$EXCITED_FOLDER/OUTCAR
 echo -e " \033[44mFetching excited band gap information...\033[0m"
-ENERGIE_VB_EXCITED=$(show-me-your-electrons -g $EXCITED_OUTCAR | grep VB | cut -d " " -f 2)
+ENERGIE_VB_EXCITED=$(smye -g $EXCITED_OUTCAR | grep VB | cut -d " " -f 2)
 echo -e "Valence band: \t $ENERGIE_VB_EXCITED"
 
 UNEXCITED_OUTCAR=$UNEXCITED_FOLDER/OUTCAR
 echo -e " \033[44mFetching excited band gap information...\033[0m"
-ENERGIE_VB_UNEXCITED=$(show-me-your-electrons -g $UNEXCITED_OUTCAR | grep VB | cut -d " " -f 2)
+ENERGIE_VB_UNEXCITED=$(smye -g $UNEXCITED_OUTCAR | grep VB | cut -d " " -f 2)
 echo -e "Valence band: \t $ENERGIE_VB_UNEXCITED"
 
 #######################################################################
@@ -66,15 +66,15 @@ EXCITED_LABEL_z="\$z\$";
 
 LUMO_TITLE="$UNEXCITED_FOLDER - $EXCITED_FOLDER for $NUMBER cell"
 
-EXCITED_SPINS={$(show-me-your-electrons $EXCITED_OUTCAR  -a 4 1 | cut -d " " -f1 | tr "\n" "," | sed -e "s/,$//" )}
-EXCITED_ENERGIES={$(show-me-your-electrons $EXCITED_OUTCAR  -a 4 1 | cut -d " " -f2 | tr "\n" "," | sed -e "s/,$//" )}
-EXCITED_OCCUPATION={$(show-me-your-electrons $EXCITED_OUTCAR  -a 4 1 | cut -d " " -f3 | tr "\n" "," | sed -e "s/,$//" )}
-EXCITED_BANDS={$(show-me-your-electrons $EXCITED_OUTCAR  -a 4 1 | cut -d " " -f4 | tr "\n" "," | sed -e "s/,$//" )}
+EXCITED_SPINS={$(smye $EXCITED_OUTCAR  -a 4 1 | cut -d " " -f1 | tr "\n" "," | sed -e "s/,$//" )}
+EXCITED_ENERGIES={$(smye $EXCITED_OUTCAR  -a 4 1 | cut -d " " -f2 | tr "\n" "," | sed -e "s/,$//" )}
+EXCITED_OCCUPATION={$(smye $EXCITED_OUTCAR  -a 4 1 | cut -d " " -f3 | tr "\n" "," | sed -e "s/,$//" )}
+EXCITED_BANDS={$(smye $EXCITED_OUTCAR  -a 4 1 | cut -d " " -f4 | tr "\n" "," | sed -e "s/,$//" )}
 
-UNEXCITED_SPINS={$(show-me-your-electrons $UNEXCITED_OUTCAR  -a 4 1 | cut -d " " -f1 | tr "\n" "," | sed -e "s/,$//" )}
-UNEXCITED_ENERGIES={$(show-me-your-electrons $UNEXCITED_OUTCAR  -a 4 1 | cut -d " " -f2 | tr "\n" "," | sed -e "s/,$//" )}
-UNEXCITED_OCCUPATION={$(show-me-your-electrons $UNEXCITED_OUTCAR  -a 4 1 | cut -d " " -f3 | tr "\n" "," | sed -e "s/,$//" )}
-UNEXCITED_BANDS={$(show-me-your-electrons $UNEXCITED_OUTCAR  -a 4 1 | cut -d " " -f4 | tr "\n" "," | sed -e "s/,$//" )}
+UNEXCITED_SPINS={$(smye $UNEXCITED_OUTCAR  -a 4 1 | cut -d " " -f1 | tr "\n" "," | sed -e "s/,$//" )}
+UNEXCITED_ENERGIES={$(smye $UNEXCITED_OUTCAR  -a 4 1 | cut -d " " -f2 | tr "\n" "," | sed -e "s/,$//" )}
+UNEXCITED_OCCUPATION={$(smye $UNEXCITED_OUTCAR  -a 4 1 | cut -d " " -f3 | tr "\n" "," | sed -e "s/,$//" )}
+UNEXCITED_BANDS={$(smye $UNEXCITED_OUTCAR  -a 4 1 | cut -d " " -f4 | tr "\n" "," | sed -e "s/,$//" )}
 
 
 #######################################################################
