@@ -2,23 +2,23 @@
 /* MAIN PARAMETERS */
 /*******************/
 
-string SPLITTING_TITLE = "128 zinc";
+string SPLITTING_TITLE = "128";
 
-string UNEXCITED_TITLE   = "A";
-real UNEXCITED_VALUE_x   = 5.2802342965e-06   ;
-string UNEXCITED_LABEL_x = "$x$";
-real UNEXCITED_VALUE_y   = 5.2802342965e-06   ;
-string UNEXCITED_LABEL_y = "$y$";
-real UNEXCITED_VALUE_z   = -1.0560468593e-05   ;
-string UNEXCITED_LABEL_z = "$z$";
+string UNEXCITED_TITLE = "A";
+real UNEXCITED_VALUE_x   = 861.633166667   ;
+string UNEXCITED_LABEL_x  = "$x$ ";
+real UNEXCITED_VALUE_y   = 130.272166667   ;
+string UNEXCITED_LABEL_y  = "$y$ ";
+real UNEXCITED_VALUE_z   = -991.905333333   ;
+string UNEXCITED_LABEL_z  = "$z$ ";
 
-string EXCITED_TITLE     = "C";
-real EXCITED_VALUE_x     = 2.52198156703e-06     ;
-string EXCITED_LABEL_x   = "$x$  ";
-real EXCITED_VALUE_y     = 2.52198156703e-06     ;
-string EXCITED_LABEL_y   = "$y$  ";
-real EXCITED_VALUE_z     = -5.04396313407e-06     ;
-string EXCITED_LABEL_z   = "$z$  ";
+string EXCITED_TITLE = "C";
+real EXCITED_VALUE_x     = 1008.983     ;
+string EXCITED_LABEL_x    = "$x$   ";
+real EXCITED_VALUE_y     = -184.719     ;
+string EXCITED_LABEL_y    = "$y$   ";
+real EXCITED_VALUE_z     = -824.264     ;
+string EXCITED_LABEL_z    = "$z$   ";
 
 
 real[] ALL_VALUES={ UNEXCITED_VALUE_x, UNEXCITED_VALUE_y, UNEXCITED_VALUE_z, EXCITED_VALUE_x, EXCITED_VALUE_y, EXCITED_VALUE_z};
