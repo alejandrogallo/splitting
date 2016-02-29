@@ -20,7 +20,6 @@ size(10cm,10cm);
 //unitsize(.2cm);
 
 
-
 struct state {
   real energy;
   real value;
