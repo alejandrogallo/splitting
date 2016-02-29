@@ -1,3 +1,7 @@
+
+size(10cm,10cm);
+//unitsize(.2cm);
+
 /*******************/
 /* MAIN PARAMETERS */
 /*******************/
@@ -5,20 +9,20 @@
 string SPLITTING_TITLE = "128";
 
 string UNEXCITED_TITLE = "A";
-real UNEXCITED_VALUE_x   = 861.633166667   ;
-string UNEXCITED_LABEL_x  = "$x$ ";
-real UNEXCITED_VALUE_y   = 130.272166667   ;
-string UNEXCITED_LABEL_y  = "$y$ ";
-real UNEXCITED_VALUE_z   = -991.905333333   ;
-string UNEXCITED_LABEL_z  = "$z$ ";
+real UNEXCITED_VALUE_x   = 1276.745   ;
+string UNEXCITED_LABEL_x   = "$x$  ";
+real UNEXCITED_VALUE_y   = 1276.745   ;
+string UNEXCITED_LABEL_y   = "$y$  ";
+real UNEXCITED_VALUE_z   = -2553.49   ;
+string UNEXCITED_LABEL_z   = "$z$  ";
 
 string EXCITED_TITLE = "C";
-real EXCITED_VALUE_x     = 1008.983     ;
-string EXCITED_LABEL_x    = "$x$   ";
-real EXCITED_VALUE_y     = -184.719     ;
-string EXCITED_LABEL_y    = "$y$   ";
-real EXCITED_VALUE_z     = -824.264     ;
-string EXCITED_LABEL_z    = "$z$   ";
+real EXCITED_VALUE_x     = 609.807666667     ;
+string EXCITED_LABEL_x     = "$x$    ";
+real EXCITED_VALUE_y     = 609.807666667     ;
+string EXCITED_LABEL_y     = "$y$    ";
+real EXCITED_VALUE_z     = -1219.61533333     ;
+string EXCITED_LABEL_z     = "$z$    ";
 
 
 real[] ALL_VALUES={ UNEXCITED_VALUE_x, UNEXCITED_VALUE_y, UNEXCITED_VALUE_z, EXCITED_VALUE_x, EXCITED_VALUE_y, EXCITED_VALUE_z};
@@ -34,8 +38,6 @@ if ( mi<0 ) {
   MIN = mi;
 }
 
-//size(5cm,5cm);
-unitsize(.2cm);
 
 
 struct state {
@@ -49,10 +51,9 @@ struct state {
   real X_COORD     = 25;
   string label_orientation = "right";
   real Y_OFFSET    = 0;
-  real X_OFFSET    = 0;
   real getPlottingValue ( ){
     real val = 100*(energy - VB)/(LB-VB);
-    return val + (X_OFFSET, Y_OFFSET);
+    return val + Y_OFFSET;
   };
   void init(real e, string l){
     energy = e;
@@ -109,11 +110,11 @@ void draw_distance ( state s, state t , real label_offset=0){
   mid2 = t.getMiddlePoint();
   path p = (mid1.x, mid1.y)--(mid1.x,mid2.y);
   draw(p, 0.5*white+dashed, Arrows());
-  label((string)energy, (mid1.x, label_offset+(mid1.y+mid2.y)/2), Fill(white));
+  label(format("%#.1f", energy)+" MHz", (mid1.x, label_offset+(mid1.y+mid2.y)/2), Fill(white));
 };
 
 
-draw((0,50)--(100,50),dashed+0.5*white);
+draw((0,50)--(100,50),dashed+0.5*red+linewidth(2));
 state CENTER;
 CENTER.value = 50;
 
@@ -159,9 +160,13 @@ CENTER.X_COORD=ex_state3.X_COORD ;
 draw_distance(CENTER, ex_state3);
 
 
-draw(box((0,0),(100,100)), invisible);
+//draw a frame
+//draw(box((0,0),(100,100)), invisible);
 
-label(SPLITTING_TITLE, (50,50), Fill(white));
+//draw title
+//label(SPLITTING_TITLE, (50,50), Fill(white));
+
+//draw states titles
 label(UNEXCITED_TITLE, (12.5/2,50), Fill(white));
 label(EXCITED_TITLE, (100-12.5/2,50), Fill(white));
 

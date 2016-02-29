@@ -9,7 +9,7 @@ splitting.pdf: splitting.asy
 	open splitting.pdf
 
 clean:
-	-rm *pdf 
+	-rm *pdf
 	-rm -rf splitting_plot
 
 build:
