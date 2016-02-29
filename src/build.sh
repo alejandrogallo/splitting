@@ -16,10 +16,21 @@ LUMO_TMP=".tmp.$LUMO_FILE"
 ABCD_FILE="abcd.asy"
 ABCD_TMP=".tmp.$ABCD_FILE"
 
+RESOURCES_FILE="resources.asy"
+
 ######################
 #  TEMPLATE DUMPING  #
 ######################
-cat $TEMPLATE >> $BUILD_NAME
+cat $TEMPLATE > $BUILD_NAME
+
+#######################
+#  RESOURCES DUMPING  #
+#######################
+
+echo 'cat > $OUTPUT_FOLDER/$RESOURCES_FILE <<EOF' >> $BUILD_NAME
+cat $RESOURCES_FILE >> $BUILD_NAME
+echo 'EOF' >> $BUILD_NAME
+
 
 #######################
 #  SPLITTING DUMPING  #
