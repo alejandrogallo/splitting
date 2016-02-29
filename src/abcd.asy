@@ -31,10 +31,9 @@ struct state {
   real DASH_HEIGHT = 1;
   real X_COORD     = 0;
   real Y_OFFSET    = 0;
-  real X_OFFSET    = 0;
   real getPlottingValue ( ){
     real val = 100*(energy - VB)/(LB-VB);
-    return val + (X_OFFSET, Y_OFFSET);
+    return val + Y_OFFSET;
   };
   void init(real e, real s=0, string ttl=""){
     energy = e;
@@ -145,7 +144,7 @@ void draw_distance ( state s, state t , real x_offset=0, real lbl_y_offset=0, st
   mid2 = t.getMiddlePoint();
   path p = (x_offset+mid1.x, mid1.y)--(x_offset+mid1.x,mid2.y);
   draw(p, 0.5*white+dashed, Arrows());
-  label(lbl, (mid1.x + x_offset, (mid1.y+mid2.y)/2 + lbl_y_offset), Fill(white*0.9));
+  label(lbl, (mid1.x + x_offset, (mid1.y+mid2.y)/2 + lbl_y_offset), Fill(white*0.95));
 };
 
 
