@@ -91,6 +91,11 @@ struct states {
     y = sum(Y)/Y.length;
     return (x,y);
   };
+  void setXOffset (real offset){
+    for ( state s : states ) {
+      s.X_COORD += offset;
+    }
+  };
   void setX ( real x ){
     for ( state s : states ) {
       s.X_COORD = x;
@@ -118,6 +123,7 @@ draw((0,50)--(100,50),dashed+0.5*red+linewidth(2));
 state CENTER;
 CENTER.value = 50;
 
+//UNEXCITET_STATE
 state unex_state1, unex_state2, unex_state3;
 states unexcited_triplet;
 state[] unex_group       = {unex_state1, unex_state2, unex_state3};
@@ -127,10 +133,10 @@ unex_state3.init(UNEXCITED_VALUE_z, UNEXCITED_LABEL_z);
 unex_state1.label_orientation = "right";
 unex_state2.label_orientation = "left";
 unexcited_triplet.states = unex_group;
-unexcited_triplet.setX(12.5);
+unexcited_triplet.setXOffset(12.5);
 unexcited_triplet.draw();
 
-//DISTANCES
+//UNEXCITET_STATE DISTANCES
 CENTER.X_COORD=unex_state1.X_COORD - CENTER.DASH_WIDTH/4;
 draw_distance(CENTER, unex_state1, 2);
 CENTER.X_COORD=unex_state2.X_COORD + CENTER.DASH_WIDTH/4;
@@ -139,6 +145,7 @@ CENTER.X_COORD=unex_state3.X_COORD ;
 draw_distance(CENTER, unex_state3);
 
 
+//EXCITET_STATE
 state ex_state1, ex_state2, ex_state3;
 states excited_triplet;
 state[] ex_group       = {ex_state1, ex_state2, ex_state3};
@@ -148,10 +155,10 @@ ex_state3.init(EXCITED_VALUE_z, EXCITED_LABEL_z);
 ex_state1.label_orientation = "right";
 ex_state2.label_orientation = "left";
 excited_triplet.states = ex_group;
-excited_triplet.setX(62.5);
+excited_triplet.setXOffset(62.5);
 excited_triplet.draw();
 
-//DISTANCES
+//EXCITET_STATE DISTANCES
 CENTER.X_COORD=ex_state1.X_COORD - CENTER.DASH_WIDTH/4;
 draw_distance(CENTER, ex_state1, 2);
 CENTER.X_COORD=ex_state2.X_COORD + CENTER.DASH_WIDTH/4;
