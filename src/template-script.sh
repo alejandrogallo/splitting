@@ -1,11 +1,55 @@
 #!/bin/bash
 
+#########
+#  CLI  #
+#########
+
+__SCRIPT_VERSION="0.0.1"; __SCRIPT_NAME=$( basename $0 ); __DESCRIPTION="Create asy plots.";
+function usage_head() { echo "Usage :  $__SCRIPT_NAME [-h|-help] [-v|-version]"; }
+function usage ()
+{
+cat <<EOF
+$(usage_head)
+
+    $__DESCRIPTION
+
+    Options:
+    -h|help       Display this message
+    -v|version    Display script version"
+    -o|output     Output folder
+
+
+    This program is maintained by Alejandro Gallo.
+EOF
+}    # ----------  end of function usage  ----------
+
+while getopts "hvo:" opt
+do
+  case $opt in
+
+  h|help     )  usage; exit 0   ;;
+
+  v|version  )  echo "$__SCRIPT_NAME -- Version $__SCRIPT_VERSION"; exit 0   ;;
+
+  o|output  )   OUTPUT_FOLDER=$OPTARG ;;
+
+  * )  echo -e "\n  Option does not exist : $OPTARG\n"
+      usage_head; exit 1   ;;
+
+  esac    # --- end of case ---
+done
+shift $(($OPTIND-1))
+
+#####################
+#  File parameters  #
+#####################
+
 SCRIPT_DIR=$(realpath $0 | xargs dirname)
 NUMBER=$(basename $SCRIPT_DIR)
 EXCITED_FOLDER=C
 UNEXCITED_FOLDER=A
 PRISTINE_BANDGAP_OUTCAR="../pristine/$NUMBER/A/OUTCAR"
-OUTPUT_FOLDER="splitting_plot_$UNEXCITED_FOLDER-$EXCITED_FOLDER"
+[[ -z $OUTPUT_FOLDER ]] && OUTPUT_FOLDER="splitting_plot_$UNEXCITED_FOLDER-$EXCITED_FOLDER"
 
 SPLITTING_OUTPUT_NAME=splitting.asy
 LUMO_OUTPUT_NAME=lumos.asy
