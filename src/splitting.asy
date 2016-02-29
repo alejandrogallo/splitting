@@ -48,9 +48,11 @@ struct state {
   real DASH_HEIGHT = 1;
   real X_COORD     = 25;
   string label_orientation = "right";
+  real Y_OFFSET    = 0;
+  real X_OFFSET    = 0;
   real getPlottingValue ( ){
     real val = 100*(energy - VB)/(LB-VB);
-    return val;
+    return val + (X_OFFSET, Y_OFFSET);
   };
   void init(real e, string l){
     energy = e;

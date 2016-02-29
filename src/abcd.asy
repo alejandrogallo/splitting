@@ -30,9 +30,11 @@ struct state {
   real DASH_WIDTH  = 25;
   real DASH_HEIGHT = 1;
   real X_COORD     = 0;
+  real Y_OFFSET    = 0;
+  real X_OFFSET    = 0;
   real getPlottingValue ( ){
     real val = 100*(energy - VB)/(LB-VB);
-    return val;
+    return val + (X_OFFSET, Y_OFFSET);
   };
   void init(real e, real s=0, string ttl=""){
     energy = e;
