@@ -3,16 +3,19 @@ real MAX = 100;
 
 
 struct state {
+
   real energy;
-  real value;
-  string title     = "";
-  real spin        = 0;
-  real VB          = MIN;
-  real LB          = MAX;
-  real DASH_WIDTH  = 25;
-  real DASH_HEIGHT = 1;
-  real X_COORD     = 0;
-  real Y_OFFSET    = 0;
+  string title      = "";
+  real spin         = 0;
+  real VB           = MIN;
+  real LB           = MAX;
+  real DASH_WIDTH   = 25;
+  real DASH_HEIGHT  = 1;
+  real X_COORD      = 0;
+  real Y_OFFSET     = 0;
+  Label customLabel = null;
+  string label_orientation = "r";
+
   real getPlottingValue ( ){
     real val = 100*(energy - VB)/(LB-VB);
     return val + Y_OFFSET;
@@ -21,12 +24,11 @@ struct state {
     energy = e;
     spin   = s;
     title  = ttl;
-    value  = getPlottingValue();
   };
   pair getMiddlePoint (  ){
     real x,y;
     x = X_COORD+(DASH_WIDTH)/2;
-    y = value + (DASH_HEIGHT)/2;
+    y = getPlottingValue() + (DASH_HEIGHT)/2;
     return (x,y);
   };
   void draw_spin(){
@@ -41,24 +43,44 @@ struct state {
     }
     draw(ar, linewidth(1),Arrow());
   };
+  void setX(real x){ X_COORD = x; };
+  void setYOffset(real offset){ Y_OFFSET = offset; };
   void draw (bool draw_state=true, bool draw_label=true){
+    real value = getPlottingValue();
     if (draw_state)
       filldraw(box((X_COORD,value),(X_COORD+DASH_WIDTH,value+DASH_HEIGHT)),red);
-    if (draw_label)
-      label(title, (X_COORD+DASH_WIDTH,value), E, Fill(white));
-    //label((string)energy, (X_COORD+DASH_WIDTH,value), E);
+    if (draw_label){
+      if ( customLabel != null ) {
+        label(customLabel);
+      } else {
+        if ( label_orientation=="r" ) {
+          label(title, (X_COORD+DASH_WIDTH,value), E, Fill(white));
+        } else {
+          label(title, (X_COORD,value), W, Fill(white));
+        }
+      }
+    }
     if ( spin != 0 ) {
       draw_spin();
     }
   };
 };
 
-void draw_distance ( state s, state t , real x_offset=0, real lbl_y_offset=0, string lbl="", string pre_lbl=""){
+void draw_distance (
+    state s,
+    state t ,
+    real x_offset=0,
+    real lbl_y_offset=0,
+    string lbl="",
+    string pre_lbl="",
+    string energy_format="%#.3f",
+    string units="eV"
+    ){
   pair mid1, mid2;
   real energy;
   energy = abs(s.energy - t.energy);
   if ( lbl=="" ) {
-    lbl = pre_lbl+format("%#.3f", energy)+" eV";
+    lbl = pre_lbl+format(energy_format, energy)+" "+units;
   } else {
     lbl = pre_lbl+lbl;
   }
@@ -68,3 +90,31 @@ void draw_distance ( state s, state t , real x_offset=0, real lbl_y_offset=0, st
   draw(p, 0.5*white+dashed, Arrows());
   label(lbl, (mid1.x + x_offset, (mid1.y+mid2.y)/2 + lbl_y_offset), Fill(white*0.95));
 };
+
+struct states {
+  state[] states;
+  string title     = "";
+  pair getMiddlePoint (  ){
+    real x,y;
+    real[] Y,X;
+    pair middle_point;
+    for ( state s : states ) {
+      middle_point = s.getMiddlePoint();
+      Y.push(middle_point.y);
+      X.push(middle_point.x);
+    };
+    x = sum(X)/X.length;
+    y = sum(Y)/Y.length;
+    return (x,y);
+  };
+  void setXOffset (real offset){ for ( state s : states ) { s.X_COORD += offset; } };
+  void setX ( real x ){ for ( state s : states ) { s.X_COORD = x; } };
+  void setDashWidth (real width) { for ( state s : states ) { s.DASH_WIDTH = width; } };
+  void setDashHeight (real height) { for ( state s : states ) { s.DASH_HEIGHT = height; } };
+  void draw (){
+    for ( state s : states ) {
+      s.draw();
+    }
+  };
+};
+
