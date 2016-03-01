@@ -86,33 +86,7 @@ struct state {
     }
   };
 };
-struct states {
-  state[] states;
-  string title     = "";
-  pair getMiddlePoint (  ){
-    real x,y;
-    real[] Y,X;
-    pair middle_point;
-    for ( state s : states ) {
-      middle_point = s.getMiddlePoint();
-      Y.push(middle_point.y);
-      X.push(middle_point.x);
-    };
-    x = sum(X)/X.length;
-    y = sum(Y)/Y.length;
-    return (x,y);
-  };
-  void setX ( real x ){
-    for ( state s : states ) {
-      s.X_COORD = x;
-    }
-  };
-  void draw (){
-    for ( state s : states ) {
-      s.draw();
-    }
-  };
-};
+
 
 
 

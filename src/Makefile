@@ -1,6 +1,6 @@
 lumos.pdf: lumos.asy
 	asy -f pdf lumos.asy
-	open lumos.pdf
+	evince lumos.pdf
 abcd.pdf: abcd.asy
 	asy -f pdf abcd.asy
 	open abcd.pdf
