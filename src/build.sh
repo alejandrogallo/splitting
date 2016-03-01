@@ -27,7 +27,7 @@ cat $TEMPLATE > $BUILD_NAME
 #  RESOURCES DUMPING  #
 #######################
 
-echo 'cat > $OUTPUT_FOLDER/$RESOURCES_FILE <<EOF' >> $BUILD_NAME
+echo 'cat > $OUTPUT_FOLDER/'$RESOURCES_FILE' <<EOF' >> $BUILD_NAME
 cat $RESOURCES_FILE >> $BUILD_NAME
 echo 'EOF' >> $BUILD_NAME
 
